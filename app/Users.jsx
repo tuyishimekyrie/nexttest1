@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 async function fetchUsers() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const res = await fetch("https://jsonplaceholder.typicode.com/users",{next: {revalidate: 10}});
   return res.json();
 }
 const Users = async () => {
@@ -10,10 +10,10 @@ const Users = async () => {
 //   console.log(data);
   return (
     <div>
-      {data.map((user) => {
+      {data?.map((user) => {
         return (
           <div key={user.id} className="flex items-center mx-32 gap-x-4 py-2">
-            <p>{user?.name}</p>
+            <p>{user.username}</p>
             <Link
               href={`/people/${user.id}`}
               className="bg-teal-700 px-4 py-1.5 rounded-sm hover:bg-indigo-600"

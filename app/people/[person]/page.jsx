@@ -2,13 +2,13 @@ import React from "react";
 import Link from "next/link";
 
 async function fetchPerson(id) {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+  const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`,{next: {revalidate: 10}});
   const data = await res.json();
   return data;
 }
 const page = async (params) => {
   const param = params;
-  const id = param.params.person;
+  const id = param?.params.person;
   const people = await fetchPerson(id);
   // console.log(people);
   return (
